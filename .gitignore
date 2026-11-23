@@ -16,7 +16,8 @@ testrun/*
 .~lock*
 *.pkl
 
-*.html
-*.xml
-*.txt
-Robot-Framework/tests/browser/
+output.xml
+log.html
+report.html
+playwright-log.txt
+browser/
