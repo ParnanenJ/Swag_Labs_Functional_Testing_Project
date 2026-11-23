@@ -5,6 +5,11 @@ Resource          variables.robot
 
 
 *** Keywords ***
+Open Swag Labs Login Page
+   New Browser    chromium    headless=False
+    New Context
+    New Page    ${URL} 
+
 Login To Swag Labs
     New Browser    chromium    headless=False
     New Context
