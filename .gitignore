@@ -21,6 +21,7 @@ log.html
 report.html
 playwright-log.txt
 browser/
+results/
 
 node_modules/
 test-results/
