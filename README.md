@@ -1,56 +1,137 @@
-# Template: Python - Minimal
+# Swag Labs Functional Testing Project
 
-This template leverages the new [Python framework](https://github.com/robocorp/robocorp), the [libraries](https://github.com/robocorp/robocorp/blob/master/README.md#packages) from to same project as well.
+This repository contains a functional test automation project for the [Swag Labs](https://www.saucedemo.com/) demo online shop.
 
-The template provides you with the basic structure of a Python project: logging out of the box and controlling your tasks without fiddling with the base Python stuff. The environment contains the most used libraries, so you do not have to start thinking about those right away.
+The objective of this project is to verify that the core workflows of the web application (authentication, menu navigation, product search and details, shopping cart, and checkout) function without unexpected issues using both positive and negative inputs.
 
-👉 Other templates are available as well via our tooling and on our [Portal](https://robocorp.com/portal/tag/template)
+## 👥 Team Members
 
-## Running
+* Katriina Chindjapin
+* Kasperi Helin
+* Jiro Pärnänen
 
-### VS Code
+## 📁 Project Structure
 
-1. Get [Sema4.ai SDK](https://sema4.ai/docs/automation/visual-studio-code/extension-features) -extension for VS Code.
-2. You'll get an easy-to-use side panel and powerful command-palette commands for running, debugging, code completion, docs, etc.
+The project is implemented in parallel using two different automation tools, each organized into its own dedicated folder:
 
-## Results
+```
+Swag_Labs_Functional_Testing_Project/
+├── robot-framework/        # Test automation implemented with Robot Framework & Browser library
+│   ├── tests/              # Test suite files (.robot)
+│   ├── resources/          # Custom keywords and variables
+├── playwright/             # Test automation implemented with native Playwright
+│   ├── tests/              # Playwright test scripts
+│   ├── package.json        # Node.js dependencies (or requirements.txt if Python)
+│   └── playwright.config.ts
+└── README.md               # Project documentation
+```
 
-🚀 After running the bot, check out the `log.html` under the `output` -folder.
+## ⚙️ How the Application Works
 
-## Dependencies
+The System Under Test (SUT) is **Swag Labs** (`https://www.saucedemo.com/`), a demo e-commerce web application designed specifically for practicing software test automation.
 
-We strongly recommend getting familiar with adding your dependencies in [conda.yaml](conda.yaml) to control your Python dependencies and the whole Python environment for your automation.
+Key features of the application:
 
-<details>
-  <summary>🙋‍♂️ "Why not just pip install...?"</summary>
+1. **Authentication:** Users log in using predefined test accounts.
+2. **Product Browsing and Sorting:** After logging in, users are presented with a product catalog that can be sorted by name (A–Z, Z–A) or price (low to high, high to low).
+3. **Product Details:** Clicking on a product opens its detail view, displaying the product name, description, price, and an option to add the item to the shopping cart.
+4. **Shopping Cart and Checkout:** Users can add and remove items from the cart. During checkout, users enter customer information (first name, last name, postal code) and complete the order.
 
-Think of [conda.yaml](conda.yaml) as an equivalent of the requirements.txt, but much better. 👩‍💻 With `conda.yaml`, you are not just controlling your PyPI dependencies; you control the complete Python environment, which makes things repeatable and easy.
+## 🚀 Getting Started & Running Tests
 
-👉 You will probably need to run your code on another machine quite soon, so by using `conda.yaml`:
+First, clone this repository to your local machine:
 
-- You can avoid `Works on my machine` -cases
-- You do not need to manage Python installations on all the machines
-- You can control exactly which version of Python your automation will run on
-  - You'll also control the pip version to avoid dep. resolution changes
-- No need for venv, pyenv, ... tooling and knowledge sharing inside your team.
-- Define dependencies in conda.yaml, let our tooling do the heavy lifting.
-- You get all the content of [conda-forge](https://prefix.dev/channels/conda-forge) without any extra tooling
+```bash
+git clone https://github.com/ParnanenJ/Swag_Labs_Functional_Testing_Project.git
+cd Swag_Labs_Functional_Testing_Project
+```
 
-> Dive deeper with [these](https://github.com/robocorp/rcc/blob/master/docs/recipes.md#what-is-in-condayaml) resources.
+### Option 1: Robot Framework (Browser Library)
 
-</details>
-<br/>
+The Robot Framework Browser library is powered by Playwright under the hood, meaning it requires both Python and Node.js.
 
-> The full power of [rpaframework](https://robocorp.com/docs/python/rpa-framework) -libraries is also available on Python as a backup while we implement the new Python libraries.
+**Prerequisites:**
+* Python (3.8 or higher)
+* Node.js (LTS version)
 
-## What now?
+**Installation and Execution:**
 
-🚀 Now, go get'em
+1. Navigate to the Robot Framework directory:
+   ```bash
+   cd Swag_Labs_Functional_Testing_Project/Robot-Framework
+   ```
 
-Start writing Python and remember that the AI/LLM's out there are getting really good and creating Python code specifically.
+2. Install the required packages and initialize the Browser library:
+   ```bash
+   pip install robotframework robotframework-browser
+   rfbrowser init
+   ```
 
-For more information, do not forget to check out the following:
+3. Run the tests:
+   ```bash
+   robot -d results tests/
+   ```
+   Test execution reports (`report.html` and `log.html`) will be generated inside the `results` directory.
 
-- [Robocorp Documentation -site](https://robocorp.com/docs)
-- [Portal for more examples](https://robocorp.com/portal)
-- Follow our main [robocorp -repository](https://github.com/robocorp/robocorp) as it is the main location where we developed the libraries and the framework.
+### Option 2: Playwright
+
+*(Note: The instructions below assume a TypeScript/JavaScript setup. If you are using Python Playwright, install dependencies via `pip install pytest-playwright` and `playwright install`.)*
+
+**Prerequisites:**
+* Node.js (LTS version)
+
+**Installation and Execution:**
+
+1. Navigate to the Playwright directory:
+   ```bash
+   cd playwright
+   ```
+
+2. Install dependencies and Playwright browsers:
+   ```bash
+   npm install
+   npx playwright install
+   ```
+
+3. Run the tests:
+   ```bash
+   # Run all tests in headless mode:
+   npx playwright test
+
+   # Run tests in interactive UI mode:
+   npx playwright test --ui
+   ```
+
+4. View the test report:
+   ```bash
+   npx playwright show-report
+   ```
+
+## 🧪 Test Scenarios (TS-01 – TS-12)
+
+The project covers 12 test scenarios divided into three main categories. Test design techniques include Equivalence Partitioning, Boundary Value Analysis, and Positive/Negative Testing.
+
+| ID | Category | Test Scenario | Description & Functionality Tested | Expected Outcome |
+| :--- | :--- | :--- | :--- | :--- |
+| **TS-01** | Authentication and Menu | Login with valid credentials | Test logging in with valid test accounts (e.g., `standard_user`). | User is successfully redirected to the inventory page (`/inventory.html`). |
+| **TS-02** | Authentication and Menu | Login with invalid credentials | Test logging in with an invalid username, incorrect password and empty fields. | Login is prevented and an appropriate error message is displayed. |
+| **TS-03** | Authentication and Menu | Open menu | Click the hamburger menu icon in the top-left corner. | The side navigation menu opens and displays the navigation links. |
+| **TS-04** | Authentication and Menu | Close menu | Click the close button (`X`) inside the open side menu. | The side navigation menu closes and is hidden from view. |
+| **TS-05** | Authentication and Menu | Logout via menu | Open the side menu and click the "Logout" link. | User is logged out and redirected back to the login page. |
+| **TS-06** | Product Search and Details | Sort products by price | Select *Price (low to high)* and *Price (high to low)* from the sorting dropdown. | Products are sorted on the page in the correct price order. |
+| **TS-07** | Product Search and Details | Sort products by name | Select *Name (A to Z)* and *Name (Z to A)* from the sorting dropdown. | Products are sorted on the page in the correct alphabetical order. |
+| **TS-08** | Product Search and Details | Open product details | Click on an individual product's name or image on the inventory page. | The product detail page opens, displaying the name, description, price, and "Add to cart" button. |
+| **TS-09** | Shopping Cart and Checkout | Add product to cart | Click the "Add to cart" button on the inventory page or product detail page. | The product is added to the cart and the shopping cart badge counter updates. |
+| **TS-10** | Shopping Cart and Checkout | Remove product from cart | Click the "Remove" button on the product page or inside the shopping cart view. | The product is removed from the cart and the cart badge counter updates accordingly. |
+| **TS-11** | Shopping Cart and Checkout | Checkout with valid information | Navigate from the cart to checkout, enter valid customer details (first name, last name, postal code), and complete the order. | The order succeeds and a confirmation message (*Thank you for your order!*) is displayed. |
+| **TS-12** | Shopping Cart and Checkout | Checkout with invalid information | Attempt to proceed through checkout while leaving required fields (first name, last name, or postal code) empty. | Checkout progression is blocked and an error message indicating the missing field is displayed. |
+
+## 🚫 Out-of-Scope Items
+
+The following items are **excluded** from the scope of this testing project:
+
+* User settings
+* External links in the menu (e.g., social media links, About page)
+* Security testing
+* Internal database testing
+* Real payment transactions
