@@ -4,5 +4,7 @@ export const testData = {
     firstName: 'Test',
     lastName: 'User',
     postalCode: '00100',
-    productName: 'Sauce Labs Backpack'
+    productName: 'Sauce Labs Backpack',
+    invalidUsername: 'Invalid_Username',
+    invalidPassword: 'Invalid_Password'
 };
