@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/login.page';
 import { InvalidLogin } from '../pages/invalid_login.page';
 import { Logout } from '../pages/logout.page';
+import { Menu } from '../pages/menu.page'
 import { testData } from '../test-data/test-data';
 
 
@@ -47,14 +48,15 @@ test('TC-02 Login With Invalid Credentials', async ({ page }) => {
 
 test('TC-05 Logout Using Menu', async ({ page }) => {
     const loginPage = new LoginPage(page);
+    const logout = new Logout(page);
+    const menu = new Menu(page);
     await loginPage.login(testData.username, testData.password);
 
     await expect(page).toHaveURL(/inventory/);
     let error = page.locator('[data-test="error"]');
     await expect(error).not.toBeVisible();
 
-    const logout = new Logout(page);
-    await logout.openMenu()
+    await menu.openMenu()
     await expect(page.locator('.bm-menu-wrap')).toHaveAttribute('aria-hidden', 'false');
 
     await logout.clicklLogout()

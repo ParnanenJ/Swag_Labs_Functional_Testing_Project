@@ -7,10 +7,6 @@ export class Logout {
         this.page = page;
     }
 
-    async openMenu() {
-        await this.page.locator('#react-burger-menu-btn').click();
-    }
-
     async clicklLogout() {
         await this.page.locator('#logout_sidebar_link').click();
     }
