@@ -21,6 +21,8 @@ Swag_Labs_Functional_Testing_Project/
 │   ├── resources/          # Custom keywords and variables
 ├── playwright/             # Test automation implemented with native Playwright
 │   ├── tests/              # Playwright test scripts
+│   ├── test-data/          # Test data (e.g. user credentials, input values, expected texts)
+│   ├── pages/              # Page Object classes (locators and actions for each page)
 │   ├── package.json        # Node.js dependencies (or requirements.txt if Python)
 │   └── playwright.config.ts
 └── README.md               # Project documentation
